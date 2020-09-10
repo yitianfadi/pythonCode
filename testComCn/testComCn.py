@@ -59,16 +59,17 @@ def send_email(mail_host,mail_user,mail_pass,to,sender,text):
    # message['From'] = Header("菜鸟教程", 'utf-8')
    # message['To'] =  Header("测试", 'utf-8')
  
-    subject = text
+    subject = text+'无法访问!'
     message['Subject'] = Header(subject, 'utf-8')
  
     try:
-        smtpObj = smtplib.SMTP(mail_host) 
+        smtpObj = smtplib.SMTP_SSL(mail_host,465) 
         #smtpObj.connect(mail_host, 25)    # 25 为 SMTP 端口号
         smtpObj.login(mail_user,mail_pass)  
         smtpObj.sendmail(sender, tosend, message.as_string())
         print ("邮件发送成功")
-    except smtplib.SMTPException:
+    except smtplib.SMTPException as e:
+        print (e)
         print ("Error: 无法发送邮件")
    
 def conn_ini(fileini): #读取配置文件函数
