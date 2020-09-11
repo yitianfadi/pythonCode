@@ -33,6 +33,7 @@ def down_main(workname,downurl):
         downurl = downurl.replace('\n', '').replace('\r', '').replace('\t', '').replace(" ", "") 
         filename = os.path.basename(downurl)
         down(filename,downurl)
+        time.sleep(2.5)
         if os.path.exists(filename):
             try:
                 os.remove(filename) # 删除文件
