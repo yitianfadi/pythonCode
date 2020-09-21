@@ -28,12 +28,12 @@ def down(filename,Download_addres): #下载地址 #把下载地址发送给reque
         pass
 
          
-def down_main(workname,downurl): 
+def down_main(workname,downurl,sleeptime): 
         workname = workname.replace('\n', '').replace('\r', '').replace('\t', '').replace(" ", "")        
         downurl = downurl.replace('\n', '').replace('\r', '').replace('\t', '').replace(" ", "") 
         filename = os.path.basename(downurl)
         down(filename,downurl)
-        time.sleep(2.5)
+        time.sleep(sleeptime)
         if os.path.exists(filename):
             try:
                 os.remove(filename) # 删除文件
@@ -117,12 +117,14 @@ if __name__ == '__main__':
     sender = get_config(fileini,sections[1],'sender')
     times = get_config(fileini,sections[2],get_option(fileini,sections[2])[0])
     times = int(times)
+    stleepTime = get_config(fileini,sections[3],get_option(fileini,sections[3])[0])
+    stleepTime = int(stleepTime)
     while True:
         print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
         if(isConnected()):
 
             for k,v in items:
-                i = down_main(k,v)
+                i = down_main(k,v,stleepTime)
                 if(i==1):
                     pass
                 elif(i==2):
