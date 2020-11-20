@@ -105,6 +105,16 @@ def get_config(fileini,item, key): # 获取[Mysql-Database]中host对应的值
 
     return value
 
+def write(str):
+  if os.path.exists('error.log'):
+    f=open('error.log','a')
+    f.writelines(str)
+    f.close()
+  else:
+    f=open('error.log','w')  #打开当前目录下的hebing.txt文件，如果没有则创建
+    f.writelines(str)
+    f.close()
+
 
 if __name__ == '__main__':
     fileini = 'config.ini'
@@ -131,9 +141,12 @@ if __name__ == '__main__':
                     pass
                 else:
                     #print(i)
+                    write(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')+i+' 无法访问! \n' )
                     send_email(mail_host,mail_user,mail_pass,to,sender,i)
+                    
             print("***"*10)
         else:
+            write(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')+i+' 本地网络不通! \n' )
             print("本地网络不通！")
         print("休眠",times,"秒")
         time.sleep(times)

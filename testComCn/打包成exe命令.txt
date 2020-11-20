@@ -1,1 +1,1 @@
-pyinstaller -F testLearningComCn.py
+pyinstaller -F testComCn.py 
